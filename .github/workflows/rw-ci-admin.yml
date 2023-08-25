@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: hecrj/setup-rust-action@v1.4.1
         with:
-          rust-version: rust:latest
+          rust-version: ${{ matrix.rust }}
       - uses: actions/checkout@master
       - name: Run tests
         run: cargo test --verbose
