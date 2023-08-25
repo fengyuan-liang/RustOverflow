@@ -1,0 +1,37 @@
+[package]
+name = "rw-admin"
+version = "0.1.0"
+edition = "2021"
+default-run = "rw-admin"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# 给生成的二进制文件起个别名
+[[bin]]
+name = "rw-admin"
+path = "./src/bin/rw-admin.rs"
+
+[dependencies]
+
+actix-rt = "2.6.0"
+actix-web = "4.0.0"
+chrono = { version = "0.4.19", features = ["serde"] }
+dotenv = "0.15.0"
+# openssl = { version = "0.10.38", features = ["vendored"] }
+serde = { version = "1.0.134", features = ["derive"] }
+#sqlx = { version = "0.7.1", features = [
+#    "postgres",
+#    "runtime-tokio-rustls",
+#    "macros",
+#    "chrono",
+#] }
+# 日志相关
+log = "0.4.0"
+env_logger = "0.10.0"
+# seaorm
+sea-orm = { version = "0.12.2", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
+
+futures-util = "0.3"
+
+
+
