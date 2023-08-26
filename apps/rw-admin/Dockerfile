@@ -19,17 +19,14 @@ RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo build --release --target x86_64-unknown-linux-musl
 
 # Final stage
-FROM scratch
+FROM alpine:latest
 WORKDIR /app
 
 # Copy the built binary from the build stage
 COPY --from=build /usr/src/app/target/x86_64-unknown-linux-musl/release/rw-admin /app/
 
-# Expose the necessary port
-EXPOSE 3000
-
 # Set the user for running the application
 USER 1000
 
 # Set the entrypoint command
-ENTRYPOINT ["./rw-admin"]
+CMD  ["./rw-admin"]
