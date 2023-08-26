@@ -24,7 +24,7 @@ async fn main() -> std::io::Result<()> {
             .service(index)
             .service(hello)
     };
-    HttpServer::new(app).bind("127.0.0.1:3000")?.run().await
+    HttpServer::new(app).bind("0.0.0.0:3000")?.run().await
 }
 
 fn init_logger() {

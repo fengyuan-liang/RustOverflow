@@ -19,7 +19,8 @@ RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo build --release --target x86_64-unknown-linux-musl
 
 # Final stage
-FROM alpine:latest
+FROM scratch
+
 WORKDIR /app
 
 # Copy the built binary from the build stage
