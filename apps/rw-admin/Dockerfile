@@ -1,5 +1,7 @@
 # Build stage for ARM
 FROM rust:latest AS build-arm
+RUN apt-get update && \
+    apt-get install -y musl-tools
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN rustup target add aarch64-unknown-linux-musl
@@ -7,6 +9,8 @@ RUN cargo build --release --target aarch64-unknown-linux-musl
 
 # Build stage for AMD
 FROM rust:latest AS build-amd
+RUN apt-get update && \
+    apt-get install -y musl-tools
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN cargo build --release
