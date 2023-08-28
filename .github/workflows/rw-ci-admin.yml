@@ -35,7 +35,12 @@ jobs:
       - name: Build Docker image
         run: |
           cd apps/rw-admin
-          docker build . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }}
+          # 创建一个用于多平台构建的构建器
+          docker buildx create --use
+          # 设置构建器为多平台构建器
+          docker buildx inspect --bootstrap
+          docker buildx build --platform linux/arm64 . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }}
+          docker buildx build --platform linux/amd64 . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }}
 
       - name: Log in to Docker registry
         run: |

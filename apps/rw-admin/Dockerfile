@@ -1,33 +1,28 @@
-# Build stage
-FROM rust:latest AS build
-# 复制项目根目录到容器中
+# Build stage for ARM
+FROM rust:latest AS build-arm
 COPY . /usr/src/app
-
-# 设置工作目录
 WORKDIR /usr/src/app
+RUN rustup target add aarch64-unknown-linux-musl
+RUN cargo build --release --target aarch64-unknown-linux-musl
 
-# Install musl-tools
-RUN apt update && apt-get install -y musl-tools && rm -rf /var/lib/apt/lists/*
-
-# Add the target x86_64-unknown-linux-musl
-RUN rustup target add x86_64-unknown-linux-musl
-
-# Copy the Cargo.toml and Cargo.lock files
-# COPY webservice/Cargo.toml ./
-
-# Build the dependencies
-RUN cargo build --release --target x86_64-unknown-linux-musl
+# Build stage for AMD
+FROM rust:latest AS build-amd
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN cargo build --release
 
 # Final stage
 FROM scratch
-
 WORKDIR /app
 
-# Copy the built binary from the build stage
-COPY --from=build /usr/src/app/target/x86_64-unknown-linux-musl/release/rw-admin /app/
+# Copy ARM binary from build-arm stage
+COPY --from=build-arm /usr/src/app/target/aarch64-unknown-linux-musl/release/rw-admin-arm /app/rw-admin
+
+# Copy AMD binary from build-amd stage
+COPY --from=build-amd /usr/src/app/target/release/rw-admin-amd /app/rw-admin
 
 # Set the user for running the application
 USER 1000
 
 # Set the entrypoint command
-CMD  ["./rw-admin"]
+CMD ["./rw-admin"]
