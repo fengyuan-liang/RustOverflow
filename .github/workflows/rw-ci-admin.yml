@@ -41,7 +41,8 @@ jobs:
           docker buildx inspect --bootstrap
           docker buildx build --platform linux/arm64 . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }} &
           docker buildx build --platform linux/amd64 . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }} &
-
+          # 等待构建完成，延时 600 秒
+          sleep 600
       - name: Log in to Docker registry
         run: |
           docker login --username=${{ secrets.DOCKER_HUB_USERNAME }} --password=${{ secrets.DOCKER_HUB_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
