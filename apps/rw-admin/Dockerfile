@@ -5,7 +5,7 @@ RUN apt-get update && \
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN rustup target add aarch64-unknown-linux-musl
-RUN cargo build --release --target aarch64-unknown-linux-musl
+RUN CC=musl-gcc cargo build --release --target aarch64-unknown-linux-musl
 
 # Build stage for AMD
 FROM rust:latest AS build-amd
