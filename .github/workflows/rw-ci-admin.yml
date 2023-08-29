@@ -9,21 +9,13 @@ jobs:
   build:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    # runs-on: ${{ matrix.os }}
-    #    strategy:
-    #      matrix:
-    #        os: [ubuntu-latest, windows-latest, macOS-latest]
-    #        rust: [stable, nightly]
+
     steps:
       - uses: hecrj/setup-rust-action@v1.4.1
         with:
-          rust-version: ${{ matrix.rust }}
-      - uses: actions/checkout@master
-      #      - name: Run tests
-      #        run: cargo test --verbose
+          rust-version: stable
 
-      - name: Check out code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -36,8 +28,6 @@ jobs:
         run: |
           docker login --username=${{ secrets.DOCKER_HUB_USERNAME }} --password=${{ secrets.DOCKER_HUB_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
           cd apps/rw-admin
-          # 创建一个用于多平台构建的构建器
           docker buildx create --use
-          # 设置构建器为多平台构建器
           docker buildx inspect --bootstrap
           docker buildx build --platform linux/arm64,linux/amd64 . --file Dockerfile --tag ${{ vars.hubAddr }}/${{ vars.USER_NAME }}/${{ vars.IMAGE_NAME }}:${{ vars.tag }} --push
