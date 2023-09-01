@@ -1549,6 +1549,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "pkg"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "env_logger",
+ "log",
+]
+
+[[package]]
 name = "pkg-config"
 version = "0.3.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1864,9 +1873,14 @@ dependencies = [
  "env_logger",
  "futures-util",
  "log",
+ "pkg",
  "sea-orm",
  "serde",
 ]
+
+[[package]]
+name = "rw-server"
+version = "0.1.0"
 
 [[package]]
 name = "ryu"

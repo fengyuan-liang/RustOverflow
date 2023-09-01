@@ -12,6 +12,7 @@ name = "rw-admin"
 path = "./src/bin/rw-admin.rs"
 
 [dependencies]
+pkg = { path = "../../pkg" }
 
 actix-rt = "2.6.0"
 actix-web = "4.0.0"

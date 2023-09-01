@@ -1,0 +1,20 @@
+[package]
+name = "pkg"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "pkg"
+path = "common/mod.rs"
+
+[dependencies]
+# 日志相关
+log = "0.4.0"
+env_logger = "0.10.0"
+# 时间相关
+chrono = { version = "0.4.19", features = ["serde"] }
+
+
+

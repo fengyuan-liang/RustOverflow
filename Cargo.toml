@@ -1,4 +1,4 @@
 [workspace]
 resolver = "2"
 
-members = ["apps/rw-admin"]
+members = ["apps/rw-admin", "apps/rw-server" , "./pkg"]
