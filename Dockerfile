@@ -9,7 +9,7 @@ RUN rustup toolchain install stable-aarch64-unknown-linux-gnu
 ENV CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc \
     CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc \
     CXX_aarch64_unknown_linux_gnu=aarch64-linux-gnu-g++
-RUN cargo build --release --target aarch64-unknown-linux-gnu
+RUN cargo build --bin rw-admin --release --target aarch64-unknown-linux-gnu
 RUN mv /usr/src/app/target/aarch64-unknown-linux-gnu/release/rw-admin /usr/src/app/target/aarch64-unknown-linux-gnu/release/rw-admin-arm
 
 ## Build stage for AMD
