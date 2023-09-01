@@ -21,7 +21,7 @@ RUN mv /usr/src/app/target/aarch64-unknown-linux-gnu/release/rw-admin /usr/src/a
 # RUN cargo build --release --target x86_64-unknown-linux-musl
 
 # Final stage for ARM
-FROM arm64v8/ubuntu
+FROM arm64v8/alpine
 WORKDIR /app
 COPY --from=build-arm /usr/src/app/target/aarch64-unknown-linux-gnu/release/rw-admin-arm /app/rw-admin
 
